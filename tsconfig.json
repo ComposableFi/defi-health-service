@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "jsx": "preserve",
+    "incremental": true,
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "noEmit": true,
+    "strict": true,
+    "pretty": true,
+    "baseUrl": ".",
+    "allowJs": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "preserveConstEnums": true,
+    "moduleResolution": "Node",
+    "preserveWatchOutput": true,
+    "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "swc": true,
+    "esm": true,
+    "transpileOnly": true,
+    "require": ["tsconfig-paths/register"],
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}
