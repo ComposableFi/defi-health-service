@@ -1,5 +1,4 @@
 import { defineConfig } from 'windicss/helpers';
-import defaultTheme from 'windicss/defaultTheme';
 import typography from 'windicss/plugin/typography';
 
 export default defineConfig({
@@ -10,6 +9,11 @@ export default defineConfig({
   attributify: true,
   darkMode: 'class',
   theme: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui'],
+      serif: ['"IBM Plex Sans"', 'SFMono-Regular'],
+      mono: ['JetBrains Mono', 'monospace'],
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -69,7 +73,6 @@ export default defineConfig({
               fontSize: '1.125em',
             },
             'h2 small, h3 small, h4 small': {
-              fontFamily: theme('fontFamily.mono').join(', '),
               color: theme('colors.slate.500'),
               fontWeight: 500,
             },
@@ -235,12 +238,6 @@ export default defineConfig({
           },
         },
       }),
-      // fontFamily: {
-      //   sans: ['Inter var', ...defaultTheme.fontFamily],
-      //   mono: ['Fira Code VF', ...defaultTheme.fontFamily.mono],
-      //   source: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
-      //   'ubuntu-mono': ['Ubuntu Mono', ...defaultTheme.fontFamily.mono],
-      // },
       spacing: {
         18: '4.5rem',
         full: '100%',
@@ -260,9 +257,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [
-    typography(),
-    require('windicss/plugin/line-clamp'),
-    require('windicss/plugin/aspect-ratio'),
-  ],
+  plugins: [typography(), require('windicss/plugin/line-clamp'), require('windicss/plugin/aspect-ratio')],
 });

@@ -8,3 +8,12 @@ export interface Bridge {
 }
 
 export type BridgeStatus = Pick<Bridge, 'name' | 'is_healthy'>;
+
+export type OPERATION = 'enable' | 'disable';
+
+export interface ApiResponse<T> {
+  data: T | null;
+  error: string | null;
+}
+
+export type UpdateBridgeResponse = ApiResponse<{ bridges: Array<Bridge> }>;

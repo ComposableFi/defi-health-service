@@ -1,16 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'isomorphic-unfetch';
 import { devLogger } from '@/lib/devLogger';
-import type { Bridge } from '@/types';
-
-interface ApiResponse {
-  data: { bridges: Array<Bridge> } | null;
-  error: string | null;
-}
+import type { Bridge, ApiResponse } from '@/types';
 
 const url = `${process.env.HASURA_ENDPOINT}/bridges`;
 
-export default async function handler({ method }: NextApiRequest, nextResponse: NextApiResponse<ApiResponse>) {
+export default async function handler(
+  { method }: NextApiRequest,
+  nextResponse: NextApiResponse<ApiResponse<{ bridges: Array<Bridge> }>>
+) {
   if (method !== 'GET') return nextResponse.status(405).json({ data: null, error: 'Method must be GET' });
 
   try {
