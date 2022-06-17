@@ -1,12 +1,12 @@
-import * as React from "react";
-import { BridgeStatus } from "../pages";
+import * as React from 'react';
+import type { BridgeStatus } from '@/types';
 
 const UpdateBridgeButton = ({ name, is_healthy }: BridgeStatus) => (
   <button
     disabled={false}
     type="button"
     className={
-      "relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 hover:text-white rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 focus:ring-4 focus:ring-red-100 dark:focus:ring-red-400 hover:cursor-pointer"
+      'relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 hover:text-white rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 focus:ring-4 focus:ring-red-100 dark:focus:ring-red-400 hover:cursor-pointer'
     }
     onClick={() => {}}
   >
@@ -15,5 +15,6 @@ const UpdateBridgeButton = ({ name, is_healthy }: BridgeStatus) => (
     </span>
   </button>
 );
-UpdateBridgeButton.displayName = "UpdateBridgesButton";
+
+UpdateBridgeButton.displayName = 'UpdateBridgesButton';
 export default UpdateBridgeButton;

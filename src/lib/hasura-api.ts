@@ -1,24 +1,15 @@
-import fetch from "isomorphic-unfetch";
+import fetch from 'isomorphic-unfetch';
+import type { Bridge } from '@/types';
 
-const HasuraRequest = async (relativePath: string) => {
-  const url = `${process.env.NEXT_PUBLIC_HASURA_ENDPOINT}/${relativePath}`;
-  const options: RequestInit = {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "x-hasura-admin-secret": process.env.NEXT_PUBLIC_HASURA_API_KEY || "",
-    },
-    redirect: "follow",
-  };
-  try {
-    const response = await fetch(url, options);
-    return response.json();
-  } catch (error: any) {
-    throw new Error(error);
-  }
-};
+interface ApiResponse {
+  data: { bridges: Array<Bridge> } | null;
+  error: string | null;
+}
 
-export const retrieveAllBridges = async () => {
-  const relativePath = `bridges`;
-  return HasuraRequest(relativePath);
+export const retrieveAllBridges = async (): Promise<{ bridges: Array<Bridge> }> => {
+  const response = await fetch(`/api/retrieve-all-bridges`);
+  if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+  const { data, error }: ApiResponse = await response.json();
+  if (error || !data) throw new Error(`${error || 'Unknown error'}`);
+  return data;
 };
