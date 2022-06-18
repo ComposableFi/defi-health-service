@@ -1,3 +1,5 @@
+export type RecordValues<T> = T[keyof T];
+
 /** Hasura API types */
 export interface Bridge {
   updated_at: string;

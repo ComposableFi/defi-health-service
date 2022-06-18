@@ -8,13 +8,6 @@ const nextConfig = {
     config.plugins.push(new WindiCSSWebpackPlugin());
     return config;
   },
-  experimental: {
-    /**<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;400;800&display=swap" rel="stylesheet">  */
-    // urlImports: ['https://fonts.googleapis.com/', 'https://fonts.gstatic.com'],
-  },
-  // headers: async () => [{ source: '/(.*)', headers: securityHeaders }],
   generateEtags: false,
   poweredByHeader: false,
 };
