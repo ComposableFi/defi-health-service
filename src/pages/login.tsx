@@ -6,7 +6,7 @@ import type { RecordValues } from '@/types';
 export const AUTH_PROVIDERS_BUTTONS: Partial<
   Record<
     keyof NonNullable<Awaited<ReturnType<typeof getProviders>>>,
-    Record<'LoginButton', React.FC<{ onClick: () => Promise<void> }>>
+    Record<'LoginButton', React.FC<{ onClick: () => ReturnType<typeof signIn> }>>
   >
 > = {
   google: { LoginButton: GoogleLoginButton },
@@ -14,7 +14,6 @@ export const AUTH_PROVIDERS_BUTTONS: Partial<
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const providers = await getProviders();
-  console.log({ providers });
   return { props: { providers } };
 };
 
@@ -35,7 +34,7 @@ export default function Login({
   );
 }
 
-export function GoogleLoginButton({ onClick }: { onClick: () => Promise<void> }) {
+export function GoogleLoginButton({ onClick }: { onClick: () => ReturnType<typeof signIn> }) {
   return (
     <button
       onClick={onClick}
