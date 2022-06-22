@@ -25,7 +25,6 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)" />
           <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots" />
           <meta name="description" content="Gets and Sets bridge health statuses" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         </Head>
         <body className="bg-white dark:bg-[#06020d] text-black dark:text-white">
           <Main />

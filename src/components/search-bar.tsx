@@ -1,5 +1,6 @@
+import clsx from 'clsx';
 import * as React from 'react';
-
+import { SearchIcon } from '@/components/icons/search';
 export function SearchBar({
   text,
   onInputChange,
@@ -8,33 +9,17 @@ export function SearchBar({
   onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <div className="py-3 selection:(dark:text-white)">
-      <label htmlFor="table-search" className="sr-only">
-        Search
-      </label>
-      <div className="relative mt-1">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <svg
-            className="w-5 h-5 text-gray-500 dark:text-gray-400"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
-            ></path>
-          </svg>
-        </div>
-        <input
-          onChange={onInputChange}
-          type="text"
-          id="table-search"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block sm:w-80 pl-10 p-2.5 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder={text}
-        />
-      </div>
+    <div className="relative mb-6 w-full w-full">
+      <input
+        id="search"
+        onInput={onInputChange}
+        placeholder={text}
+        className={clsx(
+          'dark:bg-gray-800 dark:bg-opacity-40 dark:text-gray-100 dark:placeholder-zinc-400 dark:border-rose-50 dark:border-opacity-20',
+          'ring-0 outline-0 focus:outline-none block w-full rounded-md border border-solid border-pink-200 bg-white px-4 py-2 text-gray-800 ring-transparent focus:ring-transparent focus:ring-offset-transparent outline-transparent ring-1 ring-opacity-30 focus:ring-zink-500'
+        )}
+      />
+      <SearchIcon />
     </div>
   );
 }

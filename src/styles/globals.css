@@ -68,8 +68,7 @@ a {
   text-decoration: none;
 }
 
-a::hover {
-  color: #0070f3;
+a:hover {
 }
 
 a:hover,
