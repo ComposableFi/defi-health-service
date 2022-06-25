@@ -13,12 +13,22 @@ export function CryptoIcon({ name }: { name: string }) {
 }
 
 export function HopProtocol() {
-  return <img className="rounded-full" src="/static/images/hop-protocol.webp" alt="Hop Protocol icon" />;
+  return (
+    <img
+      className="rounded-full flex"
+      src="/static/images/hop-protocol.webp"
+      alt="Hop Protocol icon"
+    />
+  );
 }
 
 export function Synapse() {
   return (
-     <img className="rounded-full flex" src="/static/images/synapse-bridge.webp" alt="Synapse Bridge icon" />
+    <img
+      className="rounded-full flex self-end"
+      src="/static/images/synapse-bridge.webp"
+      alt="Synapse Bridge icon"
+    />
     // <div className="">
     //   <svg
     //     className="w-4 h-4"

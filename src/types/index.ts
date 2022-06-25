@@ -1,7 +1,13 @@
+export interface Navigation {
+  name: string;
+  href: string;
+  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
+}
+
 export type RecordValues<T> = T[keyof T];
 
 /** Hasura API types */
-export interface Bridge {
+export interface Service {
   updated_at: string;
   name: string;
   is_healthy: boolean;
@@ -9,7 +15,7 @@ export interface Bridge {
   created_at: string;
 }
 
-export type BridgeStatus = Pick<Bridge, 'name' | 'is_healthy'>;
+export type BridgeStatus = Pick<Service, 'name' | 'is_healthy'>;
 
 export type OPERATION = 'enable' | 'disable';
 
@@ -18,4 +24,9 @@ export interface ApiResponse<T> {
   error: string | null;
 }
 
-export type UpdateBridgeResponse = ApiResponse<{ bridges: Array<Bridge> }>;
+export type UpdateBridgeResponse = ApiResponse<{ services: Array<Service> }>;
+
+interface ServiceUpdate {
+  chainId: number;
+  contractAddress: string;
+}

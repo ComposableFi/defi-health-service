@@ -2,9 +2,13 @@
   "name": "defi-health-service",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ComposableFi/defi-health-service.git"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "yarn clean && next dev",
+    "build": "yarn clean && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "npx prettier --write ./src",
@@ -12,11 +16,18 @@
     "clean:full": "rm -rf .next && rm -rf .next-build && rm -rf node_modules"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.5",
+    "@heroicons/react": "^1.0.6",
+    "graphql-hooks": "^5.11.4",
+    "graphql-hooks-memcache": "^2.3.1",
+    "graphql-hooks-ssr": "^2.2.3",
     "isomorphic-unfetch": "^3.1.0",
     "next": "12.1.6",
     "next-auth": "^4.5.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-hot-toast": "^2.2.0",
+    "zod": "^3.17.3"
   },
   "devDependencies": {
     "@swc/core": "^1.2.179",
@@ -40,12 +51,12 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^7.0.0",
+    "localtunnel": "^2.0.2",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.7.0",
     "tsc-alias": "^1.6.7",
     "tsconfig-paths": "^4.0.0",
-    "typed-query-selector": "^2.6.1",
     "typescript": "4.7.3",
     "windicss-webpack-plugin": "^1.7.3"
   }

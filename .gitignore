@@ -36,3 +36,7 @@ yarn-error.log*
 *.tsbuildinfo
 .env*
 !.env.example
+
+.scratch
+
+google-auth.json
