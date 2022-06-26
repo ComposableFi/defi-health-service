@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev": "yarn clean && next dev",
-    "build": "yarn clean && next build",
+    "build": "next build",
     "start": "next start",
+    "build-start": "yarn clean && next build && next start",
     "lint": "next lint",
     "format": "npx prettier --write ./src",
     "clean": "rm -rf .next",

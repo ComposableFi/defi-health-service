@@ -27,17 +27,7 @@ export default function Login({
   return (
     <main className="mx-auto text-center mt-25">
       <section className="w-full max-w-sm rounded-lg bg-white p-4 shadow-md dark:bg-transparent sm:p-6 lg:p-4"></section>
-      {Object.values(providers)?.map(provider => {
-        const item = AUTH_PROVIDERS_BUTTONS[provider.id];
-        if (!item) return null;
-        const { LoginButton } = item;
-        return (
-          <LoginButton
-            key={provider.id}
-            onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-          />
-        );
-      })}
+      <GoogleLoginButton onClick={() => signIn('google', { callbackUrl: '/' })} />
     </main>
   );
 }

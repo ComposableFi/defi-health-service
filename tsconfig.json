@@ -32,7 +32,6 @@
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["node", "typed-query-selector"],
     "paths": {
       "@/*": ["./src/*"]
     }

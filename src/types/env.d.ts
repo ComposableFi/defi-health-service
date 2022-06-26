@@ -1,8 +1,5 @@
 declare namespace NodeJS {
   interface ProcessEnv extends NodeJS.ProcessEnv {
-    // readonly HASURA_API_KEY: string;
-    // readonly HASURA_ENDPOINT: string;
-    // readonly NEXT_PUBLIC_HASURA_ENDPOINT: string;
     readonly GOOGLE_CLIENT_ID: string;
     readonly GOOGLE_CLIENT_SECRET: string;
     readonly AUTHORIZED_EMAILS: string;

@@ -14,16 +14,16 @@ export function Sidebar({
   if (hidden) return null;
 
   return (
-    <div className={clsx('hidden w-24 bg-dark-800 overflow-y-auto md:block')}>
+    <div className="hidden w-28 bg-true-gray-900 overflow-y-auto md:block text-md">
       <div className="w-full py-3 flex flex-col items-center h-full">
         <div className="flex-shrink-0 flex items-center">
           <img
-            className="h-12 w-auto"
+            className="h-10 w-auto"
             src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕹</text></svg>"
             alt="Workflow"
           />
         </div>
-        <div className="flex-1 mt-6 w-full px-2 space-y-1">
+        <div className="flex-1 mt-6 w-full space-y-1">
           {items.map(item => {
             const isActive = item.href === activePage;
             return (
@@ -36,16 +36,16 @@ export function Sidebar({
                 className={clsx(
                   isActive
                     ? 'bg-[rgb(012,014,26)] text-white border border-gray-900'
-                    : 'text-gray-100 hover:bg-gray-900 hover:text-white',
-                  'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                    : 'text-gray-100 hover:bg-dark-900 hover:text-white',
+                  'group w-full p-3 flex flex-col items-center font-medium'
                 )}
               >
                 <a
                   className={clsx(
                     isActive
-                      ? 'bg-[rgb(012,014,26)] text-white border border-gray-900'
-                      : 'text-gray-100 hover:bg-gray-900 hover:text-white',
-                    'group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium'
+                      ? 'bg-dark-200 text-white border border-gray-900'
+                      : 'text-gray-100 hover:bg-dark-500 hover:text-white',
+                    'group w-full p-3 flex flex-col items-center font-medium w-full'
                   )}
                 >
                   <item.icon

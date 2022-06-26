@@ -17,7 +17,7 @@ export default async function handler(
       method,
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        'x-hasura-admin-secret': process.env.HASURA_API_KEY,
+        'x-hasura-admin-secret': process.env.HASURA_ADMIN_SECRET,
       },
     });
     const data = await response.json();

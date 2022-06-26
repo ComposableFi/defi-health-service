@@ -1,13 +1,14 @@
 import * as React from 'react';
+import type {ServiceSchema} from '@/lib/schema.zod';
 
-function filterRows<Row>({ text, rows }: { text: string; rows: Array<Row & { name: string }> }) {
-  return rows.filter(({ name }) => name.toLowerCase().indexOf(text.toLowerCase()) > -1);
+function filterRows({ text, rows }: { text: string; rows: Array<ServiceSchema> }) {
+  return rows?.filter(({ name }) => name.toLowerCase().indexOf(text.toLowerCase()) > -1);
 }
 
-export function useRowsFilter<Row>(
-  rows: Array<Row & { name: string }>
+export function useRowsFilter(
+  rows: Array<ServiceSchema>
 ): [
-  filteredRows: Array<Row & { name: string }>,
+  filteredRows: Array<ServiceSchema>,
   onSearch: (event: React.ChangeEvent<HTMLInputElement>) => void,
   setText: React.Dispatch<React.SetStateAction<string>>
 ] {

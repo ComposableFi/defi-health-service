@@ -17,11 +17,11 @@ export default NextAuth({
 
   session: { strategy: 'jwt' },
   theme: { colorScheme: 'dark' },
-  events: {
-    signOut: async ({ session, token }) => {
-      devLogger(['signOut', { session, token }]);
-    },
-  },
+  // events: {
+  //   signOut: async ({ session, token }) => {
+  //     devLogger(['signOut', { session, token }]);
+  //   },
+  // },
   callbacks: {
     signIn: async ({ account, profile }) => {
       if (account.provider !== 'google') return true;
