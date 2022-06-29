@@ -13,7 +13,7 @@ import type { Navigation } from '@/types';
 const sidebarNavigation: ReadonlyArray<Navigation> = [
   { name: 'Dashboard', href: '/', icon: TableIcon },
   { name: 'Add New', href: '/new-service', icon: PlusIcon },
-  { name: 'Settings', href: '/settings', icon: CogIcon },
+  // { name: 'Settings', href: '/settings', icon: CogIcon },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

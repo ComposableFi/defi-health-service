@@ -12,7 +12,7 @@ export function Badge({
     <>
       <span
         className={clsx(
-          `text-xs px-2.5 py-0.5 rounded sm:w-20 block text-center leading-5`,
+          `text-xs px-2.5 py-0.5 rounded sm:max-w-24 block text-center leading-5 w-full`,
           color === 'green' && 'bg-green-300 text-green-800 dark:(bg-green-200 text-green-900)',
           color === 'red' && 'bg-red-200 text-red-800 dark:(bg-red-200 text-red-900)',
           color === 'yellow' &&

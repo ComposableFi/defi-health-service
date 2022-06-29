@@ -2,7 +2,7 @@ import { signIn, getProviders } from 'next-auth/react';
 import type { GetServerSideProps } from 'next';
 import type { RecordValues } from '@/types';
 import clsx from 'clsx';
-
+console.log('LOGIN')
 const AUTHORIZED_EMAILS = JSON.parse(process.env.NEXT_PUBLIC_AUTHORIZED_EMAILS) as string[];
 
 export const AUTH_PROVIDERS_BUTTONS: Partial<

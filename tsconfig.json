@@ -32,6 +32,7 @@
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "types": ["@edge-runtime/types"],
     "paths": {
       "@/*": ["./src/*"]
     }

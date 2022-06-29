@@ -25,7 +25,9 @@ export function Tabs({ tabs, activeTab = 0, onTabChange }: TabsProps) {
           aria-controls={`tab-panel-${tabIndex}`}
           className={clsx(
             'text-white text-xl font-serif tracking-wider',
-            tabIndex === activeTab ? 'text-gray-500 bg-transparent' : 'text-gray-900 bg-dark-500',
+            tabIndex === activeTab
+              ? 'text-gray-500 bg-transparent'
+              : 'text-gray-900 bg-[rgb(17,17,011)]',
             tabIndex === 0 && 'rounded-tl-lg',
             tabIndex === tabs.length - 1 && 'rounded-tr-lg',
             'group relative min-w-0 flex-1 overflow-hidden text-white py-4 px-4 text-sm font-medium text-center hover:bg-dark-800 focus:z-10'

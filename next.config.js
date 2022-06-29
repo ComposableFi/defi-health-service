@@ -11,6 +11,7 @@ const nextConfig = {
   },
   generateEtags: false,
   poweredByHeader: false,
+  experimental: { runtime: 'experimental-edge' },
 };
 
 module.exports = nextConfig;

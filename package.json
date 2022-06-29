@@ -19,15 +19,15 @@
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
-    "graphql-hooks": "^5.11.4",
-    "graphql-hooks-memcache": "^2.3.1",
-    "graphql-hooks-ssr": "^2.2.3",
+    "edge-runtime": "^1.1.0-beta.10",
     "isomorphic-unfetch": "^3.1.0",
-    "next": "12.1.6",
+    "next": "^12.2.0",
     "next-auth": "^4.5.0",
+    "postgres": "^3.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.2.0",
+    "react-query": "^3.39.1",
     "zod": "^3.17.3"
   },
   "devDependencies": {
@@ -51,6 +51,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "http-status-typed": "^1.0.1",
     "husky": "^7.0.0",
     "localtunnel": "^2.0.2",
     "prettier": "^2.7.1",

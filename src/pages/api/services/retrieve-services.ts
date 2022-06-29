@@ -1,4 +1,4 @@
-import type { NextRequest } from 'next/server';
+import type {  NextRequest } from 'next/server';
 import { devLogger } from '@/lib/devLogger';
 
 export const config = { runtime: 'experimental-edge' };
@@ -6,9 +6,7 @@ export const config = { runtime: 'experimental-edge' };
 const baseURL = `${process.env.SUPABASE_ENDPOINT}`;
 const headersInit: HeadersInit = { 'Content-Type': 'application/json; charset=utf-8' };
 
-const tables = ['Services'] as const;
-
-export default async function handler (nextRequest: NextRequest) {
+export default async function (nextRequest: NextRequest) {
   if (nextRequest.method !== 'GET') {
     return new Response(JSON.stringify({ data: null, error: 'Method must be GET' }), {
       headers: headersInit,

@@ -14,15 +14,15 @@ export function Sidebar({
   if (hidden) return null;
 
   return (
-    <div className="hidden w-28 bg-true-gray-900 overflow-y-auto md:block text-md">
+    <div className="hidden w-28 bg-[rgb(17,17,17)] overflow-y-auto md:block text-md">
       <div className="w-full py-3 flex flex-col items-center h-full">
-        <div className="flex-shrink-0 flex items-center">
+        <Link className="flex-shrink-0 flex items-center hover:cursor-pointer" passHref href="/">
           <img
-            className="h-10 w-auto"
+            className="h-10 w-auto mt-2 hover:cursor-pointer"
             src="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕹</text></svg>"
             alt="Workflow"
           />
-        </div>
+        </Link>
         <div className="flex-1 mt-6 w-full space-y-1">
           {items.map(item => {
             const isActive = item.href === activePage;

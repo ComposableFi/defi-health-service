@@ -40,6 +40,10 @@ body {
   font-weight: 400;
 }
 
+.dark body {
+  background: rgb(4, 4, 4);
+}
+
 #root,
 #__next {
   isolation: isolate;
@@ -47,7 +51,7 @@ body {
 
 main {
   padding: 3rem 1rem;
-  max-width: 55rem;
+  max-width: 75rem;
   margin: 0 auto;
 }
 

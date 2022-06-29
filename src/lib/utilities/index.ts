@@ -12,3 +12,17 @@ export function dateToNumeric(date: string) {
   };
   return new Intl.DateTimeFormat('en-US', options).format(datifiedDate);
 }
+
+export function truncateAddress({
+  address,
+  length = 10,
+}: {
+  address: string;
+  length?: number;
+}): string {
+  if(length >= address.length) return address;
+  const sideLength = Math.floor(length / 2);
+  const start = address.slice(0, sideLength);
+  const end = address.slice(address.length - sideLength);
+  return `${start}...${end}`;
+}

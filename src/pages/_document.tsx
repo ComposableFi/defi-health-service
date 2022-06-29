@@ -21,7 +21,6 @@ export default class RootDocument extends Document {
             rel="shortcut icon"
           />
           <meta charSet="utf-8" />
-          <link rel="icon" href="/favicon.ico" />
           <meta name="robots" content="follow, index" />
           <meta name="applicable-device" content="pc,mobile" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -33,7 +32,7 @@ export default class RootDocument extends Document {
           />
           <meta name="description" content="Gets and Sets bridge health statuses" />
         </Head>
-        <body className="h-full overflow-hidden bg-white text-black dark:text-light-100 dark:bg-dark-900">
+        <body className="h-full overflow-hidden bg-white text-black dark:text-light-100 dark:bg-black">
           <Main />
           <NextScript />
         </body>

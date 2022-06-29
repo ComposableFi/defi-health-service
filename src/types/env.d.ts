@@ -11,11 +11,11 @@ declare namespace NodeJS {
     readonly HASURA_ADMIN_SECRET: string;
     readonly NEXT_PUBLIC_HASURA_ADMIN_SECRET: string;
     readonly SUPABASE_API_KEY: string;
+    readonly SUPABASE_SERVICE_SECRET: string;
     readonly NEXT_PUBLIC_SUPABASE_API_KEY: string;
     readonly SUPABASE_ENDPOINT: string;
     readonly NEXT_PUBLIC_SUPABASE_ENDPOINT: string;
-    readonly SUPABASE_DATABASE_URI: string;
-    readonly NEXT_PUBLIC_SUPABASE_DATABASE_URI: string;
+    readonly SUPABASE_DATABASE_URL: string;
     readonly SUPABASE_JWT_SECRET: string;
     readonly VERCEL_URL: string; // System environment variable when deployed on Vercel: https://vercel.com/docs/environment-variables#system-environment-variables
   }
