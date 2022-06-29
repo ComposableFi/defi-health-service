@@ -32,7 +32,6 @@
     "useUnknownInCatchVariables": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "types": ["@edge-runtime/types"],
     "paths": {
       "@/*": ["./src/*"]
     }
@@ -46,7 +45,8 @@
     "transpileOnly": true,
     "require": ["tsconfig-paths/register"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "scripts/*": ["scripts/*"]
     }
   }
 }

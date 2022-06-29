@@ -40,3 +40,5 @@ yarn-error.log*
 .scratch
 
 google-auth.json
+
+.swc

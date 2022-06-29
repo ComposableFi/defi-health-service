@@ -6,7 +6,6 @@ const nextConfig = {
   swcMinify: true,
   webpack: (config, context) => {
     config.plugins.push(new WindiCSS());
-    config.experiments = { ...config.experiments, topLevelAwait: true };
     return config;
   },
   generateEtags: false,

@@ -1,9 +1,9 @@
 import fetch from 'isomorphic-unfetch';
 import type { ApiResponse } from '@/types';
-import type { NewServiceSchema, ServiceSchema } from '@/lib/schema.zod';
+import type { ServiceSchema } from '@/lib/zod/schema.zod';
 
 export async function addNewService(
-  newService: NewServiceSchema
+  newService: ServiceSchema
 ): Promise<ApiResponse<ServiceSchema>> {
   const response = await fetch('/api/services/new-service', {
     method: 'POST',

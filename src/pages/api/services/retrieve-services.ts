@@ -1,42 +1,22 @@
-import type {  NextRequest } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { devLogger } from '@/lib/devLogger';
+import { prisma } from '@/lib/prisma';
 
-export const config = { runtime: 'experimental-edge' };
-
-const baseURL = `${process.env.SUPABASE_ENDPOINT}`;
-const headersInit: HeadersInit = { 'Content-Type': 'application/json; charset=utf-8' };
-
-export default async function (nextRequest: NextRequest) {
+export default async function handler(nextRequest: NextApiRequest, nextResponse: NextApiResponse) {
   if (nextRequest.method !== 'GET') {
-    return new Response(JSON.stringify({ data: null, error: 'Method must be GET' }), {
-      headers: headersInit,
-    });
+    return nextResponse.status(405).json({ data: null, error: 'Method must be GET' });
   }
   try {
-    const requestInit: RequestInit = {
-      method: 'GET',
-      headers: {
-        ...headersInit,
-        apiKey: process.env.SUPABASE_API_KEY,
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_SECRET}`,
-      },
-    };
-    const response = await fetch(`${baseURL}/rest/v1/Services`, requestInit);
-    const data = await response.json();
-    return new Response(JSON.stringify({ data, error: 'Method must be GET' }), {
-      status: 200,
-      headers: {
-        ...headersInit,
-        'cache-control': 'public, s-maxage=1200, stale-while-revalidate=600',
-      },
-    });
+    const data = await prisma.service.findMany();
+    if (!data) {
+      console.log('no data');
+      return nextResponse.status(404).json({ data: null, error: 'No data' });
+    }
+    return  nextResponse.status(200).json({ data, error: null });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : `${error}`;
     devLogger(errorMessage);
     console.trace(errorMessage);
-    return new Response(JSON.stringify({ data: null, error: errorMessage }), {
-      status: 500,
-      headers: headersInit,
-    });
+    return nextResponse.status(500).json({ data: null, error: errorMessage });
   }
 }

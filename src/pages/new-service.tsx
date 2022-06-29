@@ -2,8 +2,7 @@ import * as React from 'react';
 import clsx from 'clsx';
 import { toast } from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { newServiceSchema } from '@/lib/schema.zod';
-import type { NewServiceSchema } from '@/lib/schema.zod';
+import { newServiceSchema, ServiceSchema, type NewServiceSchema } from '@/lib/zod/schema.zod';
 import { Fragment, useState } from 'react';
 import { Listbox, Transition, Menu } from '@headlessui/react';
 import { CheckIcon, SelectorIcon, XIcon } from '@heroicons/react/solid';
@@ -29,6 +28,7 @@ const CONTRACT_ADDRESSES = [
     name: 'C4',
   },
 ];
+
 export default function NewService() {
   const [selectedOptions, setSelectedOptions] = useState<Array<typeof CONTRACT_ADDRESSES[0]>>([]);
 
@@ -73,7 +73,7 @@ export default function NewService() {
       toast.error(validatedForm.error.message, { duration: Infinity });
       return;
     }
-    mutation.mutate(fieldValues as NewServiceSchema);
+    mutation.mutate(fieldValues as unknown as ServiceSchema);
   };
 
   return (

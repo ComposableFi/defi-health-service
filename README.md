@@ -1,1 +1,1 @@
-.
+`README.md` is being worked on. Will be ready with the next PR. For now reach out to Omar for `environment variables`.

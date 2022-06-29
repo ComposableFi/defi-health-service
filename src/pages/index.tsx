@@ -2,59 +2,39 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import * as React from 'react';
 import { toast } from 'react-hot-toast';
-
 import type { GetStaticProps } from 'next';
-import { dehydrate, QueryClient, useQuery, useMutation } from 'react-query';
-import { Listbox, Transition, Dialog } from '@headlessui/react';
-import { CheckIcon, ChevronDownIcon, PencilAltIcon } from '@heroicons/react/solid';
+import { dehydrate, QueryClient, useQuery, useMutation, useQueryClient } from 'react-query';
+import { Transition, Dialog } from '@headlessui/react';
+import { PencilAltIcon } from '@heroicons/react/solid';
 import { Tabs } from '@/components/tabs';
 import { Badge } from '@/components/badge';
 import { fetchServices } from '@/lib/queries';
 import { updateService } from '@/lib/mutations';
 import { dateToNumeric } from '@/lib/utilities';
 import { SearchBar } from '@/components/search-bar';
-import { ToggleSwitch } from '@/components/toggle-switch';
-import type { ApiResponse, HTMLElementType } from '@/types';
-import { ServiceSchema, HEALTH_STATUS, serviceSchema } from '@/lib/schema.zod';
-import { useIsMounted, useOnClickOutside, useFilterList } from '@/hooks';
+import { newServiceSchema, type ServiceSchema } from '@/lib/zod/schema.zod';
+import { useIsMounted, useFilterList } from '@/hooks';
 
-const healthOptions: ReadonlyArray<HEALTH_STATUS> = ['HEALTHY', 'COMPROMISED', 'DEGRADED'] as const;
-
+import { prisma } from '@/lib/prisma';
 export const getStaticProps: GetStaticProps = async () => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery('services', async () => {
-    const baseURL = `${process.env.SUPABASE_ENDPOINT}`;
-    const requestInit: RequestInit = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        apiKey: process.env.SUPABASE_API_KEY,
-        Authorization: `Bearer ${process.env.SUPABASE_SERVICE_SECRET}`,
-      },
-    };
-    const response = await fetch(`${baseURL}/rest/v1/Services`, requestInit);
-    const data = await response.json();
-    return data;
-  });
-  return { props: { dehydratedState: dehydrate(queryClient) }, revalidate: 1 };
+  await queryClient.prefetchQuery(['services'], async () => await prisma.service.findMany());
+  return {
+    props: { dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))) },
+    revalidate: 1,
+  };
 };
 
 export default function Home() {
   const isMounted = useIsMounted();
 
-  const { data, error, status } = useQuery<ApiResponse<Array<ServiceSchema>>>(
-    'services',
-    fetchServices
-  );
-  const [selectedTab, setSelectedTab] = React.useState(0);
+  const { data, error, status } = useQuery(['services'], fetchServices);
 
+  const [selectedTab, setSelectedTab] = React.useState(0);
   const [filteredRows, onSearch, setText] = useFilterList<ServiceSchema>(
     [data?.data][selectedTab] as Array<ServiceSchema>,
     'name'
   );
-
-  let [isOpen, setIsOpen] = React.useState(false);
-
   const [selectedRow, setSelectedRow] = React.useState<ServiceSchema | null>(null);
 
   const modalRef = React.useRef<
@@ -66,10 +46,8 @@ export default function Home() {
   >(null);
 
   if (!isMounted) return null;
-  if (!filteredRows) return null;
   return (
     <main className="mt-10">
-      {/* {JSON.stringify(selectedRow, null, 2)} */}
       <p className="text-center text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight uppercase mb-5 sm:mb-8 font-bold texrt-light-900 font-serif">
         Defi Health Service
       </p>
@@ -152,7 +130,7 @@ export default function Home() {
                     </Link>
                   </td>
                   <td className="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm hover:text-white dark:text-gray-300">
-                    {updated_at && dateToNumeric(updated_at)}
+                    {updated_at && dateToNumeric(new Date(updated_at).toISOString())}
                   </td>
                   <td className="px-3 sm:px-2 py-2 sm:py-4 place-self-start self-start">
                     <Badge
@@ -174,9 +152,7 @@ export default function Home() {
           </tbody>
         </table>
       </div>
-      {/**
-       * Modal for editing service
-       */}
+      {/* Modal for editing service */}
       <Modal ref={modalRef} selectedRow={selectedRow} />
     </main>
   );
@@ -213,6 +189,8 @@ export const Modal = React.forwardRef<ModalRefHandler, ModalRefProps>((props, re
   const contractAddressRef = React.useRef<HTMLInputElement>(null);
   const webhookUrlRef = React.useRef<HTMLInputElement>(null);
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation(updateService, {
     onError: error => {
       console.log(error);
@@ -221,9 +199,11 @@ export const Modal = React.forwardRef<ModalRefHandler, ModalRefProps>((props, re
     },
     onSuccess: () => {
       const formElement = document.querySelector(
-        'form#new-service-form'
+        'form#update-service-form'
       ) as unknown as HTMLFormElement;
+      queryClient.invalidateQueries(['services']);
       formElement.reset();
+      setIsOpen(false);
       setFormStatus({ status: 'SUCCESS' });
       toast.success('Success: New service added: ', { duration: 5000 });
     },
@@ -241,20 +221,20 @@ export const Modal = React.forwardRef<ModalRefHandler, ModalRefProps>((props, re
     message?: string | null;
   }>({ status: mutation.isLoading ? 'SUBMITTING' : 'IDLE' });
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      toast.remove();
-      setFormStatus({ status: 'SUBMITTING' });
-      const formData = new FormData(event.currentTarget);
-      const fieldValues = Object.fromEntries(formData.entries());
-      const validatedForm = await serviceSchema.safeParseAsync(fieldValues);
-      if (!validatedForm.success) {
-        setFormStatus({ status: 'ERROR', message: validatedForm.error.message });
-        toast.error(validatedForm.error.message, { duration: Infinity });
-        return;
-      }
-      mutation.mutate(fieldValues as ServiceSchema);
-    };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    toast.remove();
+    setFormStatus({ status: 'SUBMITTING' });
+    const formData = new FormData(event.currentTarget);
+    const fieldValues = Object.fromEntries(formData.entries());
+    const validatedForm = await newServiceSchema.safeParseAsync(fieldValues);
+    if (!validatedForm.success) {
+      setFormStatus({ status: 'ERROR', message: validatedForm.error.message });
+      toast.error(validatedForm.error.message, { duration: Infinity });
+      return;
+    }
+    mutation.mutate({ ...props.selectedRow, ...fieldValues } as ServiceSchema);
+  };
 
   if (!isOpen) return null;
   return (
@@ -288,11 +268,7 @@ export const Modal = React.forwardRef<ModalRefHandler, ModalRefProps>((props, re
                   className="w-full max-w-md transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all dark:text-black shadow overflow-hidden mt-5 md:mt-0 md:col-span-2 md:gap-6 w-full mx-auto max-w-lg"
                   // onClick={event => console.log(event)}
                 >
-                  <form
-                    id="update-service-form"
-                    className="rounded-t-lg"
-                    onSubmit={handleSubmit}
-                  >
+                  <form id="update-service-form" className="rounded-t-lg" onSubmit={handleSubmit}>
                     <div className="grid grid-cols-6 gap-3 sm:gap-6 px-4 py-3 sm:py-5 bg-white sm:p-6 dark:bg-dark-700 rounded-t-md sm:rounded-t-lg">
                       <div className="col-span-6">
                         <label htmlFor="name" className="block text-md font-medium text-light-800">
@@ -372,7 +348,8 @@ export const Modal = React.forwardRef<ModalRefHandler, ModalRefProps>((props, re
                         </label>
                         <select
                           ref={healthStatusRef}
-                          value={formData?.health_status}
+                          value={formData?.health_status.toUpperCase()}
+                          defaultChecked={true}
                           onChange={event => {
                             healthStatusRef.current?.focus();
                             setFormData({ ...formData, health_status: event.target.value as any });
