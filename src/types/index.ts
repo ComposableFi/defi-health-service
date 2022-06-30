@@ -1,21 +1,46 @@
-export type RecordValues<T> = T[keyof T];
-
-/** Hasura API types */
-export interface Bridge {
-  updated_at: string;
+export interface Navigation {
   name: string;
-  is_healthy: boolean;
-  id: number;
-  created_at: string;
+  href: string;
+  icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element;
 }
 
-export type BridgeStatus = Pick<Bridge, 'name' | 'is_healthy'>;
+export type HTMLElementType<T> = T extends HTMLElement ? T : never;
 
-export type OPERATION = 'enable' | 'disable';
+export type AnyCase<T extends string> = Uppercase<T> | Lowercase<T>;
+
+export type RecordValues<T> = T[keyof T];
 
 export interface ApiResponse<T> {
   data: T | null;
   error: string | null;
 }
 
-export type UpdateBridgeResponse = ApiResponse<{ bridges: Array<Bridge> }>;
+type ContentType =
+  | 'application/json'
+  | 'application/x-www-form-urlencoded'
+  | 'multipart/form-data'
+  | 'text/plain'
+  | 'text/html'
+  | 'text/xml'
+  | 'application/xml'
+  | 'text/csv'
+  | 'application/octet-stream'
+  | 'text/css'
+  | 'application/javascript'
+  | 'application/ecmascript';
+
+export type RequestHeaders = {
+  'Content-Type': `${ContentType}; charset=utf-8`;
+  'Cache-Control'?:
+    | 'public, s-maxage=1200, stale-while-revalidate=600'
+    | 'no-cache'
+    | 'no-store'
+    | 'must-revalidate'
+    | 'max-age=0'
+    | 'max-stale=0'
+    | 'proxy-revalidate'
+    | 's-maxage=0';
+  Authorization?: string;
+  Prefer?: 'return=representation' | 'return=minimal' | 'return=none';
+  apiKey?: string;
+} & HeadersInit;

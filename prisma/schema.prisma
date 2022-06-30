@@ -1,0 +1,33 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "fullTextIndex", "fullTextSearch", "metrics", "tracing"]
+
+}
+
+datasource db {
+  provider             = "postgresql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model Service {
+  id               Int      @id(map: "Service_pkey") @unique(map: "Service_id_key") @default(autoincrement())
+  created_at       DateTime @default(now())
+  updated_at       DateTime @default(now())
+  name             String
+  chain_id         String
+  contract_address String
+  webhook_url      String
+  health_status    String
+}
+
+generator zod {
+  provider = "zod-prisma"
+  output   = "../src/lib/zod"
+  relationModel = true
+  modelCase = "camelCase"
+  modelSuffix = "Schema"
+  useDecimalJs = true
+  imports = null
+  prismaJsonNullability = true
+}

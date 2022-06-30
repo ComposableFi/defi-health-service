@@ -45,7 +45,8 @@
     "transpileOnly": true,
     "require": ["tsconfig-paths/register"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "scripts/*": ["scripts/*"]
     }
   }
 }
